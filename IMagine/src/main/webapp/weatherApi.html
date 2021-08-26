@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script defer src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" integrity="sha384-vuFJ2JiSdUpXLKGK+tDteQZBqNlMwAjhZ3TvPaDfN9QmbPb7Q8qUpbSNapQev3YF" crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<title>weather</title>
+</head>
+<body>
+  <div class="weather">
+    <div class="CurrIcon"></div>
+    <div class="CurrTemp"></div>
+    <div class="City"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let weatherIcon = {
+        '01' : 'fas fa-sun',
+        '02' : 'fas fa-cloud-sun',
+        '03' : 'fas fa-cloud',
+        '04' : 'fas fa-cloud-meatball',
+        '09' : 'fas fa-cloud-sun-rain',
+        '10' : 'fas fa-cloud-showers-heavy',
+        '11' : 'fas fa-poo-storm',
+        '13' : 'far fa-snowflake',
+        '50' : 'fas fa-smog'
+      };
+    $.ajax({
+      url:'http://api.openweathermap.org/data/2.5/weather?q=Gumi&APPID=1b8d6583611cf270344d65ff3f3fc115&units=metric',
+      dataType:'json',
+      type:'GET',
+      success:function(data){
+        var $Icon = (data.weather[0].icon).substr(0,2);
+        var $Temp = Math.floor(data.main.temp) + 'º';
+        var $city = data.name;
+
+        $('.CurrIcon').append('<i class="' + weatherIcon[$Icon] +'"></i>');
+        $('.CurrTemp').prepend($Temp);
+        $('.City').append($city);
+        }
+      })
+      });
+  </script>
+
+</body>
+</html>
