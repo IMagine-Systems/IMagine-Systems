@@ -11,21 +11,11 @@ public class BbsDAO {
 	private ResultSet rs; // 어떠한 정보를 담을수있는 곳.
 	
 	public BbsDAO() { // 자동으로 데이터베이스 연결
-//		try {
-//			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
-//			String dbID = "root"; 
-//			String dbPassword = "a@1096a@1096";
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-//			System.out.println("sucess");
-//		} catch (Exception e) {
-//			e.printStackTrace(); // error 출력
-//		}
 		 try {
 
-             String dbUrl = "jdbc:mariadb://localhost:3308/flows";
-             String dbId = "flows";
-             String dbPw = "1234";
+             String dbUrl = "jdbc:mariadb://localhost:3306/flows";
+             String dbId = "youn";
+             String dbPw = "0924";
              Class.forName("org.mariadb.jdbc.Driver");
              conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
              System.out.println("sucess");
@@ -49,7 +39,7 @@ public class BbsDAO {
 		return ""; // 데이터베이스 오류
 	}
 	public int getNext() {
-		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC"; // 내림차순
+		String SQL = "SELECT bbsid FROM bbs ORDER BY bbsid DESC"; // 내림차순
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -63,7 +53,7 @@ public class BbsDAO {
 		return -1; // 데이터베이스 오류
 	}
 	public int write(String bbsTitle, String userID, String bbsContent) {
-		String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO bbs VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			
@@ -80,7 +70,7 @@ public class BbsDAO {
 		return -1; // 데이터베이스 오류
 	}
 	public ArrayList<Bbs> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; // 내림차순
+		String SQL = "SELECT * FROM bbs WHERE bbsid < ? AND bbsavailable = 1 ORDER BY bbsid DESC LIMIT 10"; // 내림차순
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -102,7 +92,7 @@ public class BbsDAO {
 		return list;
 	}
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10"; // 내림차순
+		String SQL = "SELECT * FROM bbs WHERE bbsid < ? AND bbsavailable = 1 ORDER BY bbsID DESC LIMIT 10"; // 내림차순
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
@@ -116,7 +106,7 @@ public class BbsDAO {
 		return false; 
 	}
 	public Bbs getBbs(int bbsID) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID = ?"; // 내림차순
+		String SQL = "SELECT * FROM bbs WHERE bbsid = ?"; // 내림차순
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);
@@ -137,7 +127,7 @@ public class BbsDAO {
 		return null; 
 	}
 	public int update(int bbsID, String bbsTitle, String bbsContent) {
-		String SQL = "UPDATE BBS SET bbsTitle = ?, bbsContent = ? WHERE bbsID = ?";
+		String SQL = "UPDATE bbs SET bbstitle = ?, bbscontent = ? WHERE bbsid = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			
@@ -151,7 +141,7 @@ public class BbsDAO {
 		return -1; // 데이터베이스 오류
 	}
 	public int delete(int bbsID) {
-		String SQL = "UPDATE BBS SET bbsAvailable = 0 WHERE bbsID = ?";
+		String SQL = "UPDATE bbs SET bbsavailable = 0 WHERE bbsid = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			

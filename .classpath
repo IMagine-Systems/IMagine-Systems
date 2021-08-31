@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="IMagine/src/main/java"/>
+	<classpathentry kind="lib" path="IMagine/src/main/webapp/WEB-INF/lib/mariadb-java-client-2.7.2.jar"/>
+	<classpathentry kind="lib" path="IMagine/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.23.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_281"/>
+	<classpathentry kind="output" path="IMagine/build/classes"/>
+</classpath>

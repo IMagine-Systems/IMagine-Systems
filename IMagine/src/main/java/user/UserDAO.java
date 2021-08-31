@@ -13,33 +13,24 @@ public class UserDAO {
 	private ResultSet rs; // 어떠한 정보를 담을수있는 곳.
 	
 	public UserDAO() { // 자동으로 데이터베이스 연결
-//		try {
-//			String dbURL = "jdbc:mysql://localhost:3306/BBS?characterEncoding=UTF-8&serverTimezone=UTC";
-//			String dbID = "root"; 
-//			String dbPassword = "a@1096a@1096";
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//			conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-//			System.out.println("sucess");
-//		} catch (Exception e) {
-//			e.printStackTrace(); // error 출력
-//		}
 		try {
 
-            String dbUrl = "jdbc:mariadb://localhost:3308/flows";
-            String dbId = "flows";
-            String dbPw = "1234";
+            String dbUrl = "jdbc:mariadb://localhost:3306/flows";
+            String dbId = "youn";
+            String dbPw = "0924";
             Class.forName("org.mariadb.jdbc.Driver");
             conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
             System.out.println("sucess");
 
         }catch (Exception e) {
             // TODO: handle exception
+            System.out.println("데이터베이스에 연결 할 수 없습니다.");
             e.printStackTrace();
         }
 	}
 	
 	public int login(String userID, String userPassword) {
-		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
+		String SQL = "SELECT userpassword FROM user WHERE userid = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID); // 가장 중요한부분 접속 시도하고자 아이디 존재하는지 할수있다.
@@ -60,13 +51,13 @@ public class UserDAO {
 		return -2; // 데이터베이스 오류
 	}
 	public int auth(String userID) {
-		String SQL = "SELECT userAuth FROM USER WHERE userID = ?";
+		String SQL = "SELECT userauth FROM user WHERE userid = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				if (rs.getString("userAuth").equals("guest")) {
+				if (rs.getString("user_auth").equals("guest")) {
 					return 1; // guest
 				}
 				else {
@@ -81,7 +72,7 @@ public class UserDAO {
 	}
 	
 	public int join(User user) {
-		String SQL = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, user.getUserID());

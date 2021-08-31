@@ -14,9 +14,9 @@ import java.sql.Connection;
 		public makerDAO() {
 			try {
 
-				String dbUrl = "jdbc:mariadb://localhost:3308/flows";
-				String dbId = "flows";
-				String dbPw = "1234";
+				String dbUrl = "jdbc:mariadb://localhost:3306/flows";
+				String dbId = "youn";
+				String dbPw = "0924";
 				Class.forName("org.mariadb.jdbc.Driver");
 				conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
 				System.out.println("sucess");
@@ -40,21 +40,4 @@ import java.sql.Connection;
 			}
 		}
 		
-//		public int makerGetNum(String num) {
-//			String SQL = "SELECT makerNum FROM maker";
-//			try {
-//				PreparedStatement pstmt = conn.prepareStatement(SQL);
-//				rs = pstmt.executeQuery();
-//				while(rs.next()) {
-//					if (rs.getInt("makerNum") == Integer.parseInt(num)) {
-//						return  rs.getInt("makerNum");
-//					}
-//				}
-//				
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//				return -1;
-//			}
-//			return -2;
-//		}
 }
